@@ -1,0 +1,1 @@
+/Users/nr/main/.vibe-system/vibe-launcher.sh
