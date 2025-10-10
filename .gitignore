@@ -31,10 +31,13 @@ generated_audio/
 # OS
 .DS_Store
 Thumbs.db
+**/.DS_Store
+
+# Documentation is tracked
+!docs/
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-

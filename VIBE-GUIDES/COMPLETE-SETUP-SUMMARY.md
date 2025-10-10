@@ -1,1 +1,0 @@
-/Users/nr/main/.vibe-system/COMPLETE-SETUP-SUMMARY.md
