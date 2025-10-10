@@ -1,0 +1,40 @@
+# Environment and API keys
+.env
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Sound packs (keep structure but not the large audio files)
+sound_packs/**/*.wav
+sound_packs/**/*.mp3
+sound_packs/**/*.aif
+sound_packs/**/*.aiff
+sound_packs/**/*.m4a
+
+# Keep the folders
+!sound_packs/.gitkeep
+!sound_packs/*/.gitkeep
+
+# Generated audio
+generated_audio/
+*.mid
+*.midi
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
