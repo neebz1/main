@@ -7,8 +7,10 @@ from huggingface_hub import HfApi, create_repo, upload_file
 import os
 from pathlib import Path
 
-# Your HF token
-HF_TOKEN = "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"
+# Load HF token from environment
+from dotenv import load_dotenv
+load_dotenv()
+HF_TOKEN = os.getenv('HF_TOKEN')
 
 # Initialize API
 api = HfApi(token=HF_TOKEN)
