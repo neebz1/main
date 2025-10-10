@@ -1,0 +1,29 @@
+# Requirements for ChatGPT Model Training
+# Install with: pip install -r requirements_chatgpt_training.txt
+
+# Core libraries
+transformers>=4.35.0
+datasets>=2.14.0
+torch>=2.0.0
+accelerate>=0.24.0
+
+# Efficient training with LoRA/QLoRA
+peft>=0.6.0
+bitsandbytes>=0.41.0
+
+# Training utilities
+tensorboard>=2.14.0
+scipy>=1.11.0
+scikit-learn>=1.3.0
+
+# Optional but recommended
+gradio>=4.0.0  # For creating demo interfaces
+fastapi>=0.104.0  # For API deployment
+uvicorn>=0.24.0  # For running FastAPI
+huggingface-hub>=0.19.0  # For model sharing
+
+# Development tools
+jupyter>=1.0.0
+ipywidgets>=8.1.0
+tqdm>=4.66.0
+
