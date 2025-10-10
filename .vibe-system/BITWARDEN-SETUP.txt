@@ -1,0 +1,157 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                                                                                 ║
+║                    🔐 BITWARDEN SETUP - SIMPLE STEPS 🔐                        ║
+║                      (For AI Features to Work)                                  ║
+║                                                                                 ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📝 WHAT THIS DOES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Sets up secure storage for your AI API keys so you can use commands like:
+  • ai-ask "your question"
+  • ai-code "help with code"
+  • Semantic search in Docs-Agent
+
+Skip this if: You're happy just using Cursor AI directly (everything else works)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔑 STEP 1: Get Your API Keys (5 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+You need at least ONE of these:
+
+Option A: OpenRouter (Recommended - access to ALL AI models)
+  1. Go to: https://openrouter.ai/keys
+  2. Sign up (free)
+  3. Click "Create Key"
+  4. Copy the key (starts with "sk-or-...")
+  5. Save it somewhere safe for now
+
+Option B: OpenAI (Just GPT)
+  1. Go to: https://platform.openai.com/api-keys
+  2. Sign in
+  3. Create new key
+  4. Copy it
+
+Option C: Anthropic (Just Claude)
+  1. Go to: https://console.anthropic.com/
+  2. Sign in
+  3. Get API key
+  4. Copy it
+
+Pick ONE to start (OpenRouter gives you access to all models).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔐 STEP 2: Login to Bitwarden (One Time)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Open a NEW Terminal window (⌘ + N) and type:
+
+bw login
+
+You'll be asked for:
+  • Email address (your Bitwarden email)
+  • Master password (your Bitwarden password)
+
+Don't have Bitwarden account yet?
+  1. Go to: https://bitwarden.com
+  2. Sign up (free)
+  3. Remember your master password!
+  4. Then run: bw login
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💾 STEP 3: Save API Key in Bitwarden
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Easiest way - Use Bitwarden app:
+  1. Open Bitwarden app or go to: https://vault.bitwarden.com
+  2. Click "+" to add new item
+  3. Select "Login"
+  4. Fill in:
+     Name: OpenRouter API
+     Password: [paste your API key from Step 1]
+  5. Click Save
+
+Alternative - Use command line:
+  In Terminal:
+  export BW_SESSION=$(bw unlock --raw)
+  ~/config/vibe-coding/add-api-key.sh
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚡ STEP 4: Load API Keys (Daily)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Every time you open a new terminal, run:
+
+bwload
+
+This:
+  1. Unlocks Bitwarden (asks for password)
+  2. Loads API keys into memory
+  3. Makes AI commands work
+
+Check if it worked:
+
+ai_status
+
+Should show:
+  ✅ OpenRouter (if you set up OpenRouter key)
+  ❌ Other services (if you didn't set them up - that's fine!)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧪 STEP 5: Test AI Commands
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Once bwload shows ✅, try:
+
+ai-ask "Say hello in 5 languages"
+
+You should get an AI response!
+
+Other commands that now work:
+  ai-ask "your question"       → Ask AI anything
+  ai-code "coding help"        → Get coding help
+  ai-review                    → Review your git changes (in a git repo)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 SUMMARY (The Simple Version)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+What you need:
+  1. API key from OpenRouter.ai (free to sign up)
+  2. Bitwarden account (free)
+  3. Save key in Bitwarden app (name: "OpenRouter API")
+  4. Run: bwload (in terminal)
+  5. Test: ai_status
+
+Total time: ~10 minutes
+
+Worth it if: You want to ask AI questions directly in terminal
+Skip it if: Using Cursor AI is enough for you
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️  CURRENT STATUS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Bitwarden: Not logged in yet
+Status: "unauthenticated"
+
+Next: Open a REGULAR Terminal (not in Cursor/IDE) and type:
+  bw login
+
+Follow the prompts for email and password.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💡 HELP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Don't have Bitwarden? Sign up: https://bitwarden.com (free!)
+
+Don't have API key? Get one: https://openrouter.ai/keys (free!)
+
+Need help? Just tell me where you're stuck!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
