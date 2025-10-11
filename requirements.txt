@@ -2,3 +2,6 @@ gradio>=4.0.0
 together>=1.0.0
 python-dotenv>=1.0.0
 
+# Development monitoring dependencies
+psutil>=5.9.0  # For system metrics
+

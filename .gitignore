@@ -41,3 +41,7 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Development monitoring reports (exclude generated reports, keep directory)
+dev_reports/*.json
+!dev_reports/.gitkeep
