@@ -15,22 +15,38 @@ from contextlib import asynccontextmanager
 
 from docs_agent import DocsAgent
 
+# Import API monitor (check if available)
+try:
+    import sys
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+    from api_monitor import APIMonitor
+    API_MONITOR_AVAILABLE = True
+except ImportError:
+    API_MONITOR_AVAILABLE = False
+
 # Configuration
 INDEX_DIR = Path(os.getenv("INDEX_DIR", "./index"))
 API_KEY = os.getenv("DOCS_API_KEY", "")  # Set this in production!
 PORT = int(os.getenv("PORT", 8000))
 
 
-# Initialize DocsAgent on startup
+# Initialize DocsAgent and API Monitor on startup
 docs_agent = None
+api_monitor = None
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Initialize on startup, cleanup on shutdown"""
-    global docs_agent
+    global docs_agent, api_monitor
     print("🚀 Initializing Docs-Agent...")
     docs_agent = DocsAgent(INDEX_DIR, embedding_provider="openrouter")
     print("✅ Docs-Agent ready!")
+    
+    if API_MONITOR_AVAILABLE:
+        print("🔍 Initializing API Monitor...")
+        api_monitor = APIMonitor()
+        print("✅ API Monitor ready!")
+    
     yield
     print("👋 Shutting down Docs-Agent...")
 
@@ -91,6 +107,8 @@ async def root():
             "lookup": "/lookup",
             "stats": "/stats",
             "ingest": "/ingest (POST)",
+            "api_monitor": "/api/monitor",
+            "api_status": "/api/status",
         }
     }
 
@@ -218,6 +236,72 @@ async def list_documents():
         return {
             "total": len(documents),
             "documents": documents
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/monitor")
+async def api_monitor_status():
+    """
+    Get API integration monitoring status
+    
+    Returns health status, response times, and usage metrics for all API providers
+    """
+    if not API_MONITOR_AVAILABLE:
+        raise HTTPException(
+            status_code=503, 
+            detail="API monitoring not available. Install required dependencies: httpx"
+        )
+    
+    if not api_monitor:
+        raise HTTPException(status_code=500, detail="API monitor not initialized")
+    
+    try:
+        # Check all providers
+        await api_monitor.check_all_providers()
+        
+        # Generate report
+        report = api_monitor.get_status_report()
+        
+        # Add alerts
+        report["alerts"] = api_monitor.alert_on_failures()
+        
+        # Add optimization suggestions
+        report["optimization_suggestions"] = api_monitor.get_cost_optimization_suggestions()
+        
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/status")
+async def api_quick_status():
+    """
+    Quick API status check (lightweight)
+    
+    Returns summary of API health without detailed metrics
+    """
+    if not API_MONITOR_AVAILABLE:
+        return {
+            "monitoring_available": False,
+            "message": "API monitoring not available"
+        }
+    
+    if not api_monitor:
+        return {
+            "monitoring_available": False,
+            "message": "API monitor not initialized"
+        }
+    
+    try:
+        healthy = api_monitor.get_healthy_providers()
+        
+        return {
+            "monitoring_available": True,
+            "healthy_providers": healthy,
+            "provider_count": len(api_monitor.metrics),
+            "timestamp": api_monitor.metrics[list(api_monitor.metrics.keys())[0]].last_check if api_monitor.metrics else None
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

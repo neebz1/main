@@ -12,6 +12,9 @@ venv/
 env/
 ENV/
 
+# API monitoring metrics (runtime data)
+api_metrics.json
+
 # Sound packs (keep structure but not the large audio files)
 sound_packs/**/*.wav
 sound_packs/**/*.mp3
