@@ -1,0 +1,85 @@
+name: Automated Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12']
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install psutil requests python-dotenv pytest pytest-cov pytest-mock
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      
+      - name: Run tests with coverage
+        run: |
+          pytest test_devops_monitor.py -v --cov=devops_monitor --cov-report=term --cov-report=xml
+      
+      - name: Upload coverage to artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report-${{ matrix.python-version }}
+          path: coverage.xml
+          retention-days: 30
+      
+      - name: Test monitoring system
+        env:
+          TOGETHER_API_KEY: ${{ secrets.TOGETHER_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python devops_monitor.py --check
+      
+      - name: Verify monitoring reports
+        run: |
+          if [ ! -d "monitoring_reports" ]; then
+            echo "::error::Monitoring reports directory not created"
+            exit 1
+          fi
+          if [ ! -f "monitoring_reports/latest_report.json" ]; then
+            echo "::error::Latest report not generated"
+            exit 1
+          fi
+          echo "✅ Monitoring system working correctly"
+
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Install linting tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 pylint black
+      
+      - name: Run flake8
+        run: |
+          flake8 devops_monitor.py --max-line-length=100 --ignore=E501,W503 || true
+      
+      - name: Check code formatting with black
+        run: |
+          black --check devops_monitor.py test_devops_monitor.py || true

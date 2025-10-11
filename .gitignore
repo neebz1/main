@@ -41,3 +41,7 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Monitoring reports
+monitoring_reports/
+*.log
