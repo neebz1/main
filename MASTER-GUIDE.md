@@ -361,6 +361,8 @@ Track what works:
 - **AI-MIXING-ENGINEER-GUIDE.md** - Mixing engineer tutorial
 - **MUSIC-AI-GUIDE.md** - Music copilot guide
 - **SESSION-SUMMARY.md** - Today's session notes
+- **API-MONITOR-README.md** - API health monitoring system
+- **API-MONITOR-GUIDE.md** - Complete monitoring documentation
 
 ### External Resources
 - Logic Pro User Guide (in Logic: Help → Logic Pro Help)
