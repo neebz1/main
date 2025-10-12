@@ -2,19 +2,23 @@
 
 Everything you need in ONE place. Simple. Clean. Working.
 
+**🔐 Security Status:** ✅ All secrets properly protected (see `SECURITY_REVIEW.md`)
+
 ---
 
 ## 📁 What's Here
 
 ```
-/Users/nr/main/
-├── START-HERE.md              ← Read this first!
-├── FINAL-SETUP-SUMMARY.md     ← Complete setup guide
-├── HOW-TO-USE-YOUR-AI-TOOLS.md ← How to use Cline & Cursor
-├── .env                        ← All your API keys
-├── logic_copilot_lite.py      ← Music production AI
-├── start-music-ai.sh          ← One-click music AI launcher
-└── requirements_lite.txt      ← Python dependencies
+main/
+├── 📄 START-HERE.md              ← Read this first!
+├── 📄 FINAL-SETUP-SUMMARY.md     ← Complete setup guide
+├── 📄 HOW-TO-USE-YOUR-AI-TOOLS.md ← How to use Cline & Cursor
+├── 🔐 .env                        ← All your API keys (create from .env.example)
+├── 📋 .env.example               ← Template for API keys
+├── 🎵 logic_copilot_lite.py      ← Music production AI
+├── 🚀 start-music-ai.sh          ← One-click music AI launcher
+├── 📦 requirements_lite.txt      ← Python dependencies
+└── 📂 docs/archive/              ← Historical documentation
 ```
 
 ---
@@ -100,3 +104,30 @@ Press `⌘K` in Cursor right now and make something cool! 🚀
 - `START-HERE.md` - Simple beginner guide
 - `FINAL-SETUP-SUMMARY.md` - Complete setup details
 - `HOW-TO-USE-YOUR-AI-TOOLS.md` - Tool instructions
+- `SECURITY_REVIEW.md` - Security audit and best practices
+- `REPOSITORY_ORGANIZATION.md` - Repository structure guide
+
+---
+
+## 🔒 Security & First-Time Setup
+
+### Setting Up Your API Keys:
+1. Copy the template: `cp .env.example .env`
+2. Edit `.env` and add your actual API keys
+3. Save the file (it's automatically git-ignored)
+
+### Security Status:
+✅ All secrets properly protected via environment variables  
+✅ No API keys in git history  
+✅ Comprehensive `.gitignore` configuration  
+✅ `.env.example` template provided for new users
+
+**Full security audit available in `SECURITY_REVIEW.md`**
+
+---
+
+## 📚 Additional Documentation
+
+- Feature Guides: `MUSIC-AI-GUIDE.md`, `AI-MIXING-ENGINEER-GUIDE.md`, `LOGIC-AI-PLUGIN-GUIDE.md`
+- Deployment: `DEPLOY-TO-HUGGINGFACE.md`, `CLOUD-BUILDER-GUIDE.md`
+- Historical docs: `docs/archive/` (completed milestones and session notes)
