@@ -11,9 +11,12 @@ Everything you need in ONE place. Simple. Clean. Working.
 ├── START-HERE.md              ← Read this first!
 ├── FINAL-SETUP-SUMMARY.md     ← Complete setup guide
 ├── HOW-TO-USE-YOUR-AI-TOOLS.md ← How to use Cline & Cursor
+├── TOP-GITHUB-REPOS-GUIDE.md  ← Find top GitHub repositories
 ├── .env                        ← All your API keys
 ├── logic_copilot_lite.py      ← Music production AI
+├── top20_github_repos.py      ← GitHub repos finder
 ├── start-music-ai.sh          ← One-click music AI launcher
+├── show-top-github-repos.sh   ← Show top GitHub repositories
 └── requirements_lite.txt      ← Python dependencies
 ```
 
@@ -45,6 +48,7 @@ python3 logic_copilot_lite.py
 | **Cursor AI** | Generate & edit code | Press `⌘K` |
 | **Cline** | Build entire features | `⌘⇧P` → "Cline" |
 | **Logic Pro Copilot** | Music production help | Run `./start-music-ai.sh` |
+| **Top GitHub Repos** | Find best repositories | Run `./show-top-github-repos.sh` |
 
 ---
 
@@ -79,6 +83,20 @@ Your AI music production assistant:
 - Learn as you produce
 
 **Run it:** `./start-music-ai.sh`
+
+---
+
+## 🌟 Top GitHub Repositories Finder
+
+Discover the most popular GitHub repositories:
+- Find top repos by stars/forks
+- Filter by programming language
+- Learn from the best projects
+- Explore trending technologies
+
+**Run it:** `./show-top-github-repos.sh`
+
+**See guide:** `TOP-GITHUB-REPOS-GUIDE.md`
 
 ---
 
