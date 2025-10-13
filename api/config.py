@@ -17,15 +17,14 @@ class Settings(BaseModel):
     VERSION: str = "1.0.0"
 
     # Security
-    SECRET_KEY: str = os.getenv(
-        "SECRET_KEY",
-        "your-secret-key-change-this-in-production-use-openssl-rand-hex-32",
-    )
+    SECRET_KEY: str = os.getenv("SECRET_KEY", "")
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
     # CORS
-    ALLOWED_ORIGINS: list = ["*"]  # Configure for production
+    ALLOWED_ORIGINS: list = os.getenv(
+        "ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:8000"
+    ).split(",")
 
     # Database (for future SQL implementation)
     DATABASE_URL: Optional[str] = os.getenv("DATABASE_URL")
@@ -39,6 +38,16 @@ class Settings(BaseModel):
 
 # Global settings instance
 settings = Settings()
+
+# Validate SECRET_KEY
+if (
+    not settings.SECRET_KEY
+    or settings.SECRET_KEY
+    == "your-secret-key-change-this-in-production-use-openssl-rand-hex-32"
+):
+    print("⚠️  WARNING: SECRET_KEY not set or using default!")
+    print("   Generate a secure key with: openssl rand -hex 32")
+    print("   Set in .env file: SECRET_KEY=<your-generated-key>")
 
 
 # ==================== IMPORTANT: PRODUCTION SECURITY ====================

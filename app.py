@@ -6,19 +6,21 @@ Talk to your AI assistant from ANYWHERE to build features!
 Access from: Phone, tablet, any browser
 """
 
-import gradio as gr
 import os
 
+import gradio as gr
+
 # For Hugging Face deployment
-HF_TOKEN = os.getenv('HF_TOKEN')  # Optional, for private spaces
+HF_TOKEN = os.getenv("HF_TOKEN")  # Optional, for private spaces
 
 # AI setup
-TOGETHER_API_KEY = os.getenv('TOGETHER_API_KEY')
+TOGETHER_API_KEY = os.getenv("TOGETHER_API_KEY")
 
 client = None
 try:
     if TOGETHER_API_KEY:
         from together import Together
+
         client = Together(api_key=TOGETHER_API_KEY)
         print("✅ AI: Kimi K2")
 except:
@@ -27,10 +29,10 @@ except:
 
 def chat_with_ai(message, history):
     """Chat with AI to build features"""
-    
+
     if not client:
         return "⚠️ Please configure TOGETHER_API_KEY in Space Settings → Secrets"
-    
+
     # System prompt
     system_prompt = """You are Noah's personal AI assistant for building music production tools.
 
@@ -54,7 +56,7 @@ When Noah asks you to build something:
 4. Suggest next steps
 
 Be conversational and helpful!"""
-    
+
     try:
         # Build message history
         messages = [{"role": "system", "content": system_prompt}]
@@ -62,7 +64,7 @@ Be conversational and helpful!"""
             messages.append({"role": "user", "content": h[0]})
             messages.append({"role": "assistant", "content": h[1]})
         messages.append({"role": "user", "content": message})
-        
+
         # Call AI
         response = client.chat.completions.create(
             model="meta-llama/Llama-3.3-70B-Instruct-Turbo",
@@ -73,37 +75,38 @@ Be conversational and helpful!"""
             top_k=50,
             repetition_penalty=1,
             stop=["<|eot_id|>", "<|eom_id|>"],
-            safety_model="moonshotai/Kimi-K2-Instruct"
+            safety_model="moonshotai/Kimi-K2-Instruct",
         )
-        
+
         return response.choices[0].message.content
-        
+
     except Exception as e:
-        return f"❌ Error: {str(e)}\n\nCheck API key configuration in Settings → Secrets"
+        return (
+            f"❌ Error: {str(e)}\n\nCheck API key configuration in Settings → Secrets"
+        )
 
 
 # Create UI
 with gr.Blocks(
-    theme=gr.themes.Soft(primary_hue="blue"),
-    title="Noah's AI Builder"
+    theme=gr.themes.Soft(primary_hue="blue"), title="Noah's AI Builder"
 ) as demo:
     gr.Markdown(
         """
         # 🤖 Noah's AI Builder
         ### Talk to your AI assistant from anywhere - build features on the go!
-        
+
         **I'm your AI assistant!** Tell me what you want to build for your music production suite and I'll help you create it!
-        
+
         ---
         """
     )
-    
+
     with gr.Tabs():
         with gr.Tab("💬 Build & Chat"):
             gr.Markdown(
                 """
                 ### Give me instructions!
-                
+
                 **Try asking:**
                 - "How do I add a new feature to detect song key?"
                 - "Help me build a drum pattern generator"
@@ -111,7 +114,7 @@ with gr.Blocks(
                 - "Build a mobile app version of the AI mixer"
                 - "Add Spotify integration"
                 - "Explain how the OSC control works"
-                
+
                 **I'll give you:**
                 - Step-by-step code
                 - Installation instructions
@@ -119,60 +122,62 @@ with gr.Blocks(
                 - Next steps
                 """
             )
-            
+
             chatbot = gr.Chatbot(
                 height=600,
                 placeholder="👋 Hi Noah! Tell me what you want to build and I'll help you create it!",
                 show_label=False,
-                type="messages"
+                type="messages",
             )
-            
+
             with gr.Row():
                 msg = gr.Textbox(
                     placeholder="What do you want to build? (e.g., 'Add beat matching to the AI mixer')",
                     show_label=False,
                     scale=4,
-                    lines=2
+                    lines=2,
                 )
-                submit = gr.Button("🚀 Build It!", scale=1, variant="primary", size="lg")
-            
+                submit = gr.Button(
+                    "🚀 Build It!", scale=1, variant="primary", size="lg"
+                )
+
             # Handle chat
             msg.submit(chat_with_ai, [msg, chatbot], [chatbot])
             submit.click(chat_with_ai, [msg, chatbot], [chatbot])
-            
+
             # Clear button
             clear = gr.Button("🗑️ Clear Chat")
             clear.click(lambda: None, None, chatbot, queue=False)
-        
+
         with gr.Tab("📚 About Your Suite"):
             gr.Markdown(
                 """
                 ## 🎵 Your AI Music Production Suite
-                
+
                 ### What You Have:
-                
+
                 **1. Live AI Plugin**
                 - Real-time Logic Pro control
                 - Screen vision with Google Gemini
                 - OSC automation
                 - Voice commands
-                
+
                 **2. AI Mixing Engineer**
                 - Professional audio analysis
                 - EQ & compression recommendations
                 - Loudness metering
                 - Waveform & spectrogram
-                
+
                 **3. Music Copilot**
                 - Production Q&A
                 - Logic Pro tips
                 - Sound pack management
-                
+
                 **4. Voice Assistant**
                 - Google Gemini 2.0 vision
                 - Real-time screen analysis
                 - Hands-free control
-                
+
                 ### Tech Stack:
                 - Python 3.11
                 - Google Gemini 2.0 Flash
@@ -181,7 +186,7 @@ with gr.Blocks(
                 - AppleScript automation
                 - librosa (audio analysis)
                 - Gradio (web interfaces)
-                
+
                 ### Value:
                 **~$1,150** worth of professional tools
                 - iZotope Neutron equivalent: $399
@@ -189,47 +194,47 @@ with gr.Blocks(
                 - LANDR mastering: $150/year
                 - Voice control system: $299
                 - OSC automation: $149
-                
+
                 **All built for FREE!** ✨
-                
+
                 ### Project Location:
                 - GitHub: https://github.com/neebz1/main
                 - Local: `/Users/nr/main`
-                
+
                 ### Current Status:
                 ✅ Production-ready
                 ✅ Fully functional
                 ✅ Documented
                 ✅ Tested
-                
+
                 ---
-                
+
                 ## 💡 How to Use This Space
-                
+
                 1. **Ask me to build something**
                    - "Add a tempo sync feature"
                    - "Create a chord progression generator"
-                   
+
                 2. **I'll provide:**
                    - Complete code
                    - How to install it
                    - How to use it
-                   
+
                 3. **Copy code to your Mac**
                    - Add to your project
                    - Run and enjoy!
-                
+
                 4. **Keep iterating!**
                    - Ask for improvements
                    - Fix issues
                    - Add more features
-                
+
                 ---
-                
+
                 **🚀 Ready to build something amazing?** Just start chatting!
                 """
             )
-    
+
     gr.Markdown(
         """
         ---
@@ -238,14 +243,26 @@ with gr.Blocks(
         - 💻 Any computer
         - 📲 Tablet
         - 🌐 Anywhere with internet
-        
+
         **🔒 Your API keys are safe** - stored in Space Secrets (not in chat)
-        
+
         ---
         🎵 **Built with AI • Powered by Kimi K2 • Made for Noah** 🎚️
         """
     )
 
 if __name__ == "__main__":
-    demo.launch()
+    # Setup authentication
+    gradio_auth = None
+    gradio_password = os.getenv("GRADIO_PASSWORD")
+    if gradio_password:
+        gradio_auth = (os.getenv("GRADIO_USER", "admin"), gradio_password)
+        print("🔒 Authentication enabled")
+    else:
+        print("⚠️  WARNING: No GRADIO_PASSWORD set - app is unprotected!")
+        print("   Set GRADIO_PASSWORD in .env file")
 
+    demo.launch(
+        auth=gradio_auth,  # ✅ Authentication enabled
+        share=False,  # ✅ Disabled public sharing for security
+    )
