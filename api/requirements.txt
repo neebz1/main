@@ -1,0 +1,28 @@
+# REST API with Authentication - Requirements
+
+# FastAPI Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# Authentication & Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+
+# Data Validation
+pydantic[email]==2.5.0
+
+# CORS & Middleware
+python-dotenv==1.0.0
+
+# Optional: For production database (uncomment when ready)
+# sqlalchemy==2.0.23
+# psycopg2-binary==2.9.9  # PostgreSQL
+# pymysql==1.1.0  # MySQL
+# alembic==1.12.1  # Database migrations
+
+# Development & Testing (optional)
+# pytest==7.4.3
+# httpx==0.25.1
+# pytest-asyncio==0.21.1
+

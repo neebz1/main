@@ -1,0 +1,6 @@
+
+
+#!/bin/bash
+python3 agents/conversational_agent.py
+type deploy everything and press enter
+
