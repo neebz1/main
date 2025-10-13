@@ -4,6 +4,16 @@ Everything you need in ONE place. Simple. Clean. Working.
 
 ---
 
+## 🆕 New to GitHub? Start Here!
+
+**👋 Brand new to GitHub and need help cleaning up?**
+
+📖 **[Read the GitHub Cleanup Guide](GITHUB-CLEANUP-GUIDE.md)** - A complete beginner-friendly guide to cleaning up your GitHub account and repository!
+
+🚀 **Quick cleanup:** Run `./cleanup-repo.sh` to automatically clean up redundant files (creates a backup first!)
+
+---
+
 ## 📁 What's Here
 
 ```
