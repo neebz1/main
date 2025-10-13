@@ -1,0 +1,115 @@
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃         🚀 CURSOR AI - ONE PAGE QUICK START 🚀           ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+╔═══════════════════════════════════════════════════════════╗
+║                  ⚡ THE 4 MAGIC KEYS ⚡                    ║
+╚═══════════════════════════════════════════════════════════╝
+
+  ⌘K     Generate/Edit Code
+         → Open file, press ⌘K, type what you want
+         → Example: "add error handling"
+
+  ⌘L     Chat with AI
+         → Press ⌘L, ask anything
+         → Example: "explain this code"
+
+  ⌘⇧P    Command Palette
+         → Press ⌘⇧P, type any command
+         → Example: "Cline: Open"
+
+  ⌘,     Settings
+         → Press ⌘, to open settings
+         → Search for anything
+
+╔═══════════════════════════════════════════════════════════╗
+║              🎯 MOST COMMON TASKS                         ║
+╚═══════════════════════════════════════════════════════════╝
+
+  Generate Code:    ⌘K → type request → Enter
+  Fix a Bug:        Select code → ⌘K → "fix this"
+  Add Feature:      ⌘K → "add login form"
+  Ask Question:     ⌘L → ask anything
+  Open Cline:       ⌘⇧P → "Cline: Open"
+
+╔═══════════════════════════════════════════════════════════╗
+║              🔧 IF SOMETHING BREAKS                       ║
+╚═══════════════════════════════════════════════════════════╝
+
+  1. Restart Cursor:        ⌘Q → Reopen Cursor
+  2. Check Settings:        ⌘, → Search "AI"
+  3. Verify Setup:          ./verify-setup.sh
+  4. Read Guide:            cat ZERO-ISSUES-SETUP.md
+
+╔═══════════════════════════════════════════════════════════╗
+║              📁 ESSENTIAL FILES                           ║
+╚═══════════════════════════════════════════════════════════╝
+
+  ZERO-ISSUES-SETUP.md  →  Fix any problem
+  verify-setup.sh       →  Check if working
+  THIS FILE             →  Quick reference
+  .env                  →  Your API keys
+
+╔═══════════════════════════════════════════════════════════╗
+║              💡 PRO TIPS                                  ║
+╚═══════════════════════════════════════════════════════════╝
+
+  ✅ Use ⌘K for everything (it's the best feature)
+  ✅ Restart Cursor if weird things happen
+  ✅ Don't install random extensions
+  ✅ Keep Cursor updated (Menu → Check for Updates)
+  ❌ Don't overcomplicate - just press ⌘K!
+
+╔═══════════════════════════════════════════════════════════╗
+║              🎓 LEARN IN 60 SECONDS                       ║
+╚═══════════════════════════════════════════════════════════╝
+
+  Step 1: Open Cursor
+  Step 2: Create new file (test.js)
+  Step 3: Press ⌘K
+  Step 4: Type: "create a calculator function"
+  Step 5: Press Enter
+  Step 6: 🎉 AI writes the code!
+
+  That's it. You're now coding with AI.
+
+╔═══════════════════════════════════════════════════════════╗
+║         🆘 EMERGENCY: NOTHING WORKS?                      ║
+╚═══════════════════════════════════════════════════════════╝
+
+  1. Run: ./verify-setup.sh
+  2. Fix any FAILED checks
+  3. Restart Cursor (⌘Q → reopen)
+  4. Try ⌘K again
+  5. Still broken? Read ZERO-ISSUES-SETUP.md
+
+╔═══════════════════════════════════════════════════════════╗
+║         ✅ CHECKLIST: IS IT WORKING?                      ║
+╚═══════════════════════════════════════════════════════════╝
+
+  [ ] Can open Cursor without errors
+  [ ] ⌘K opens AI prompt
+  [ ] ⌘L opens AI chat
+  [ ] Can create and save files
+  [ ] AI responds to requests
+
+  All checked? You're ready! Start building! 🚀
+
+╔═══════════════════════════════════════════════════════════╗
+║              🎯 WHAT TO BUILD FIRST                       ║
+╚═══════════════════════════════════════════════════════════╝
+
+  Try these with ⌘K:
+  
+  • "create a simple website with a header"
+  • "make a to-do list app"
+  • "build a calculator"
+  • "create a random quote generator"
+  • "make a countdown timer"
+
+  Just press ⌘K and type any of these!
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  Remember: If you can press ⌘K, you can code with AI!    ┃
+┃           Stop overthinking. Start building! 🚀           ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛

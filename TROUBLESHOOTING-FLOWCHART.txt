@@ -1,0 +1,211 @@
+# 🔍 TROUBLESHOOTING FLOWCHART
+
+```
+                    ┏━━━━━━━━━━━━━━━━━━━━━┓
+                    ┃  Is Cursor working? ┃
+                    ┗━━━━━━━━━━━━━━━━━━━━━┛
+                              │
+                    ┌─────────┴─────────┐
+                   NO                  YES
+                    │                   │
+                    ▼                   ▼
+          ┏━━━━━━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━━━━━━┓
+          ┃ Can you open    ┃   ┃ ⌘K works?       ┃
+          ┃ Cursor?         ┃   ┗━━━━━━━━━━━━━━━━━┛
+          ┗━━━━━━━━━━━━━━━━━┛            │
+                    │              ┌─────┴─────┐
+          ┌─────────┴─────────┐   NO         YES
+         NO                  YES   │           │
+          │                   │    ▼           ▼
+          ▼                   ▼   FIX B    ┏━━━━━━━━━━┓
+       FIX A              FIX A.1  │        ┃ SUCCESS! ┃
+                                   │        ┗━━━━━━━━━━┛
+                                   ▼
+                        ┏━━━━━━━━━━━━━━━━━┓
+                        ┃ Have Cursor Pro ┃
+                        ┃ or free trial?  ┃
+                        ┗━━━━━━━━━━━━━━━━━┛
+                                   │
+                          ┌────────┴────────┐
+                         NO                YES
+                          │                 │
+                          ▼                 ▼
+                       FIX C            FIX B.1
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                         FIXES                                ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+FIX A: Cursor Won't Open
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Check if installed:
+   ls -la /Applications/Cursor.app
+
+2. If not installed:
+   → Download from cursor.sh
+   → Drag to Applications folder
+
+3. If installed but won't open:
+   → Right-click → Open (Mac security)
+   → Try from terminal: open -a Cursor
+
+
+FIX A.1: Cursor Opens But Errors Everywhere
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Restart Cursor completely:
+   ⌘Q → Wait 5 seconds → Reopen
+
+2. Check for updates:
+   Menu → Check for Updates → Install
+
+3. Clear cache:
+   ⌘⇧P → "Clear Editor History"
+
+4. Still broken?
+   → Read ZERO-ISSUES-SETUP.md
+   → Run ./verify-setup.sh
+
+
+FIX B: ⌘K Does Nothing
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Make sure you're in a code file:
+   → Create new file: test.js
+   → Try ⌘K again
+
+2. Check AI is enabled:
+   → ⌘, (settings)
+   → Search "AI"
+   → Enable "Cursor Tab" and "AI Features"
+
+3. Try alternate: ⌘L
+   → Opens chat instead
+   → If this works, ⌘K should too
+
+4. Restart Cursor:
+   ⌘Q → Reopen → Try again
+
+
+FIX B.1: ⌘K Says "Out of Requests/Credits"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Check subscription status:
+   → Go to cursor.sh/settings
+   → Check if trial expired
+   → Check if payment failed
+
+2. Sign in/Sign out:
+   → ⌘, → "Account"
+   → Sign out → Sign back in
+
+3. Subscribe to Cursor Pro:
+   → $20/month for unlimited AI
+   → Worth it vs alternatives
+
+
+FIX C: No Subscription
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Start free trial:
+   → Go to cursor.sh
+   → Sign up/Sign in
+   → Activate 14-day free trial
+
+2. Or subscribe ($20/month):
+   → cursor.sh/settings
+   → Add payment method
+   → Get unlimited AI
+
+3. Alternative (free but limited):
+   → Use Cline extension with own API
+   → Need OpenRouter or Anthropic key
+   → ⌘⇧P → "Cline: Open"
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                    SPECIFIC ERROR FIXES                      ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+Error: "Git not configured"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Run:
+  git config --global user.name "Your Name"
+  git config --global user.email "your@email.com"
+
+
+Error: "Extension host terminated unexpectedly"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Bad extension installed
+   → ⌘⇧X → Check extensions
+   → Disable one by one to find culprit
+   → Remove problematic extension
+
+2. Or restart Cursor + Mac
+
+
+Error: "Cannot find module X"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. For Python:
+   pip install -r requirements.txt
+
+2. For Node.js:
+   npm install
+
+
+Error: Cline says "No API key"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Get API key:
+   → OpenRouter: openrouter.ai
+   → Anthropic: anthropic.com
+
+2. Add to Cursor:
+   → ⌘, → Search "cline"
+   → Paste your API key
+
+3. Or add to .env file:
+   echo "OPENROUTER_API_KEY=sk-..." > .env
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                 PREVENTION CHECKLIST                         ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+Do this weekly to avoid issues:
+
+[ ] Update Cursor (Menu → Check for Updates)
+[ ] Restart Cursor if it's been running for days
+[ ] Check subscription status (cursor.sh/settings)
+[ ] Review extensions - remove unused ones
+[ ] Backup settings (~/.cursor/settings.json)
+[ ] Run ./verify-setup.sh to check health
+
+Do this before any big project:
+
+[ ] Restart Cursor fresh (⌘Q → reopen)
+[ ] Test ⌘K works
+[ ] Test ⌘L works
+[ ] Git is configured
+[ ] Have active subscription/trial
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃              QUICK REFERENCE: RUN THESE                      ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+Verify setup:        ./verify-setup.sh
+Auto-fix issues:     ./fix-issues.sh
+Read full guide:     cat ZERO-ISSUES-SETUP.md
+Quick start:         cat ONE-PAGE-QUICK-START.txt
+
+Emergency reset:
+  rm ~/.cursor/settings.json
+  ⌘Q → Reopen Cursor
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  Still broken? You've tried everything in this flowchart?    ┃
+┃                                                              ┃
+┃  1. Screenshot the error                                     ┃
+┃  2. Note what you did before it broke                        ┃
+┃  3. Check docs.cursor.sh                                     ┃
+┃  4. Join Cursor Discord for support                          ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+```
