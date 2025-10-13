@@ -119,16 +119,26 @@ class ProjectBuilder:
                 check=True
             )
             
-            # Push
+            # Get current branch
+            branch_result = subprocess.run(
+                "git rev-parse --abbrev-ref HEAD",
+                shell=True,
+                cwd=self.project_dir,
+                capture_output=True,
+                text=True
+            )
+            current_branch = branch_result.stdout.strip()
+            
+            # Push to current branch
             result = subprocess.run(
-                "git push origin main",
+                f"git push origin {current_branch}",
                 shell=True,
                 cwd=self.project_dir,
                 capture_output=True,
                 text=True
             )
             
-            return f"✅ Committed and pushed!\n\n{result.stdout}"
+            return f"✅ Committed and pushed to {current_branch}!\n\n{result.stdout}"
         except Exception as e:
             return f"⚠️ Git operation: {e}"
     

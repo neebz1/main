@@ -142,8 +142,20 @@ class AutoGitWatcher:
             
             # Push if enabled
             if self.config["auto_push"]:
+                # Get current branch name
+                branch_result = subprocess.run(
+                    "git rev-parse --abbrev-ref HEAD",
+                    shell=True,
+                    cwd=self.project_dir,
+                    capture_output=True,
+                    text=True
+                )
+                
+                current_branch = branch_result.stdout.strip()
+                
+                # Try to push to current branch
                 push_result = subprocess.run(
-                    "git push origin main",
+                    f"git push origin {current_branch}",
                     shell=True,
                     cwd=self.project_dir,
                     capture_output=True,
@@ -152,11 +164,11 @@ class AutoGitWatcher:
                 )
                 
                 if push_result.returncode == 0:
-                    print(f"✅ Pushed to remote")
+                    print(f"✅ Pushed to remote ({current_branch})")
                     return True
                 else:
                     print(f"⚠️  Push failed: {push_result.stderr}")
-                    # Try alternative branches
+                    # Try default push
                     alt_result = subprocess.run(
                         "git push",
                         shell=True,
@@ -166,7 +178,7 @@ class AutoGitWatcher:
                         timeout=30
                     )
                     if alt_result.returncode == 0:
-                        print(f"✅ Pushed to remote (default branch)")
+                        print(f"✅ Pushed to remote (default)")
                         return True
                     return False
             
