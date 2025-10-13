@@ -45,6 +45,23 @@ python3 logic_copilot_lite.py
 | **Cursor AI** | Generate & edit code | Press `⌘K` |
 | **Cline** | Build entire features | `⌘⇧P` → "Cline" |
 | **Logic Pro Copilot** | Music production help | Run `./start-music-ai.sh` |
+| **Autonomous Git** | Auto-commit & push changes | Run `./start-auto-git.sh` |
+
+---
+
+## 🤖 NEW: Autonomous Git
+
+**Your git is now fully autonomous!** Changes are automatically committed and pushed.
+
+```bash
+# Start auto-git (checks every 5 minutes)
+./start-auto-git.sh
+
+# Or use custom interval
+./start-auto-git.sh --interval 120
+```
+
+📖 **Full guide:** [AUTO-GIT-GUIDE.md](AUTO-GIT-GUIDE.md)
 
 ---
 
