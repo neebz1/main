@@ -11,10 +11,12 @@ cd "$(dirname "$0")"
 source venv/bin/activate
 
 echo ""
-echo "=" * 60
+printf '=%.0s' {1..60}
+echo ""
 echo "🌐 Cloud AI Builder"
 echo "Talk to your AI assistant from ANY device!"
-echo "=" * 60
+printf '=%.0s' {1..60}
+echo ""
 echo ""
 
 # Launch the app
