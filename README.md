@@ -10,6 +10,8 @@ Everything you need in ONE place. Simple. Clean. Working.
 
 📖 **[Read the GitHub Cleanup Guide](GITHUB-CLEANUP-GUIDE.md)** - A complete beginner-friendly guide to cleaning up your GitHub account and repository!
 
+❓ **[GitHub Beginner's FAQ](GITHUB-BEGINNERS-FAQ.md)** - Quick answers to common questions about Git and GitHub
+
 🚀 **Quick cleanup:** Run `./cleanup-repo.sh` to automatically clean up redundant files (creates a backup first!)
 
 ---

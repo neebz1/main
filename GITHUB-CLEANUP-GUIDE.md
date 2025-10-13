@@ -359,10 +359,11 @@ You've learned how to:
 
 ---
 
-## 🆘 Need More Help?
+## 🆘 Need Help?
 
 - **Git Documentation:** https://git-scm.com/doc
 - **GitHub Guides:** https://guides.github.com/
+- **[GitHub Beginners FAQ](GITHUB-BEGINNERS-FAQ.md)** - Quick answers to common questions
 - **Ask in README.md:** Open an issue if you have questions
 
 ---
