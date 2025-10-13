@@ -2,6 +2,8 @@
 
 **Welcome!** This guide will help you clean up your GitHub account and repository step by step.
 
+💡 **TL;DR:** See [CLEANUP-SUMMARY.md](CLEANUP-SUMMARY.md) for a visual before/after comparison!
+
 ---
 
 ## 🎯 What This Guide Does
