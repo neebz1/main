@@ -1,0 +1,29 @@
+version: 2
+updates:
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "neebz1"
+    labels:
+      - "dependencies"
+      - "auto-approve"
+    # Auto-approve minor and patch updates
+    allow:
+      - dependency-type: "all"
+    
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "neebz1"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "auto-approve"

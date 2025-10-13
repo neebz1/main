@@ -10,6 +10,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 import json
+from auto_approval import auto_approval
 
 # Load environment variables
 load_dotenv()
@@ -170,6 +171,34 @@ def scan_sound_packs(sound_packs_dir="sound_packs"):
     return "\n".join(results)
 
 
+def get_auto_approval_status():
+    """Get auto-approval system status"""
+    stats = auto_approval.get_approval_stats()
+    enabled = "✅ Enabled" if auto_approval.config.get("enabled") else "⚠️ Disabled"
+    
+    return f"""
+### Auto-Approval Status
+{enabled}
+
+**Statistics:**
+- Total actions: {stats['total']}
+- Auto-approved: {stats['approved']}
+- Rejected: {stats['rejected']}
+- Approval rate: {stats['approval_rate']:.1f}%
+
+**Auto-approved categories:**
+{chr(10).join(f"- {cat}" for cat in auto_approval.config.get('auto_approve_categories', []))}
+"""
+
+
+def toggle_auto_approval():
+    """Toggle auto-approval on/off"""
+    if auto_approval.config.get("enabled"):
+        return auto_approval.disable_auto_approval()
+    else:
+        return auto_approval.enable_auto_approval()
+
+
 def create_ui():
     """Create the Gradio interface"""
     
@@ -177,12 +206,15 @@ def create_ui():
     provider_names = {"kimi": "Kimi K2", "anthropic": "Claude", "openai": "GPT-4"}
     ai_status = f"✅ AI: {provider_names.get(AI_PROVIDER, 'Not configured')}" if AI_PROVIDER else "⚠️ AI: Not configured (add API key to enable)"
     
+    # Auto-approval status
+    auto_approve_status = "✅ Auto-Approve: Enabled" if auto_approval.config.get("enabled") else "⚠️ Auto-Approve: Disabled"
+    
     with gr.Blocks(theme=gr.themes.Soft(), title="Logic Pro Copilot") as app:
         gr.Markdown(
             f"""
             # 🎵 Logic Pro Copilot
             ### Your AI production assistant - making beatmaking fun again!
-            {ai_status}
+            {ai_status} | {auto_approve_status}
             """
         )
         
@@ -274,6 +306,34 @@ def create_ui():
                     **Got questions? Ask the AI Copilot in the chat tab!**
                     """
                 )
+            
+            # Auto-Approval Settings Tab
+            with gr.Tab("⚙️ Auto-Approval Settings"):
+                gr.Markdown(
+                    """
+                    ### Automatic Approval System
+                    
+                    This system automatically approves safe operations like:
+                    - Documentation updates
+                    - Code formatting
+                    - Minor dependency updates
+                    - Safe file modifications
+                    
+                    **Note:** Critical operations always require manual approval.
+                    """
+                )
+                
+                status_display = gr.Markdown(get_auto_approval_status())
+                
+                with gr.Row():
+                    toggle_btn = gr.Button("🔄 Toggle Auto-Approval", variant="primary")
+                    refresh_btn = gr.Button("🔄 Refresh Status")
+                
+                toggle_output = gr.Textbox(label="Status", lines=2, interactive=False)
+                
+                # Connect buttons
+                toggle_btn.click(toggle_auto_approval, outputs=toggle_output)
+                refresh_btn.click(get_auto_approval_status, outputs=status_display)
         
         gr.Markdown(
             """

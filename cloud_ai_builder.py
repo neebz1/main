@@ -19,6 +19,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from datetime import datetime
 import json
+from auto_approval import auto_approval
 
 # Load environment
 load_dotenv()
@@ -59,6 +60,16 @@ class ProjectBuilder:
         
     def execute_command(self, command: str) -> str:
         """Execute shell command and return output"""
+        
+        # Check if command should be auto-approved
+        should_approve, reason = auto_approval.should_auto_approve(
+            "command_execution",
+            {"command": command}
+        )
+        
+        if not should_approve:
+            return f"⚠️ Manual approval required: {reason}\n\nCommand: {command}\n\nTo approve, add this to safe commands in auto-approval settings."
+        
         try:
             result = subprocess.run(
                 command,
@@ -87,12 +98,22 @@ class ProjectBuilder:
     
     def write_file(self, file_path: str, content: str) -> str:
         """Write file contents"""
+        
+        # Check if file modification should be auto-approved
+        should_approve, reason = auto_approval.should_auto_approve(
+            "file_modification",
+            {"file_path": file_path, "operation": "write"}
+        )
+        
+        if not should_approve:
+            return f"⚠️ Manual approval required: {reason}\n\nFile: {file_path}\n\nTo approve, this file type needs to be added to safe patterns."
+        
         try:
             full_path = self.project_dir / file_path
             full_path.parent.mkdir(parents=True, exist_ok=True)
             with open(full_path, 'w') as f:
                 f.write(content)
-            return f"✅ Wrote {file_path}"
+            return f"✅ Wrote {file_path} (auto-approved)"
         except Exception as e:
             return f"❌ Error writing {file_path}: {e}"
     
@@ -215,12 +236,42 @@ def execute_task(task_description):
     return f"🔨 Task queued: {task_description}\n\nThe AI will process this and update your project!"
 
 
+def get_auto_approval_status():
+    """Get auto-approval system status"""
+    stats = auto_approval.get_approval_stats()
+    enabled = "✅ Enabled" if auto_approval.config.get("enabled") else "⚠️ Disabled"
+    
+    return f"""
+### Auto-Approval Status
+{enabled}
+
+**Statistics:**
+- Total actions: {stats['total']}
+- Auto-approved: {stats['approved']}
+- Rejected: {stats['rejected']}
+- Approval rate: {stats['approval_rate']:.1f}%
+
+**Safe commands:**
+{chr(10).join(f"- {cmd}" for cmd in auto_approval.config.get('safe_commands', [])[:10])}
+{"- ... and more" if len(auto_approval.config.get('safe_commands', [])) > 10 else ""}
+"""
+
+
+def toggle_auto_approval():
+    """Toggle auto-approval on/off"""
+    if auto_approval.config.get("enabled"):
+        return auto_approval.disable_auto_approval()
+    else:
+        return auto_approval.enable_auto_approval()
+
+
 def create_ui():
     """Create the Gradio interface"""
     
     # Build header with AI provider info
     provider_names = {"kimi": "Kimi K2", "anthropic": "Claude", "openai": "GPT-4"}
     ai_status = f"✅ AI: {provider_names.get(AI_PROVIDER, 'Not configured')}" if AI_PROVIDER else "⚠️ AI: Not configured"
+    auto_approve_status = "✅ Auto-Approve: Enabled" if auto_approval.config.get("enabled") else "⚠️ Auto-Approve: Disabled"
     
     with gr.Blocks(theme=gr.themes.Soft(primary_hue="blue"), title="Cloud AI Builder") as app:
         gr.Markdown(
@@ -228,7 +279,7 @@ def create_ui():
             # 🤖 Cloud AI Builder
             ### Talk to your AI assistant from anywhere - build projects remotely!
             
-            {ai_status}
+            {ai_status} | {auto_approve_status}
             
             **Give me instructions and I'll build it for you!**
             """
@@ -359,6 +410,33 @@ def create_ui():
 """
                 
                 refresh_info.click(get_project_info, outputs=info_output)
+            
+            # Auto-Approval Settings Tab
+            with gr.Tab("⚙️ Auto-Approval"):
+                gr.Markdown(
+                    """
+                    ### Automatic Approval System
+                    
+                    This system automatically handles safe operations:
+                    - Safe command execution (read-only operations)
+                    - Documentation file modifications
+                    - Minor dependency updates (via GitHub Actions)
+                    
+                    **Security:** All destructive operations require manual approval.
+                    """
+                )
+                
+                status_display = gr.Markdown(get_auto_approval_status())
+                
+                with gr.Row():
+                    toggle_btn = gr.Button("🔄 Toggle Auto-Approval", variant="primary")
+                    refresh_btn = gr.Button("🔄 Refresh Status")
+                
+                toggle_output = gr.Textbox(label="Status", lines=2, interactive=False)
+                
+                # Connect buttons
+                toggle_btn.click(toggle_auto_approval, outputs=toggle_output)
+                refresh_btn.click(get_auto_approval_status, outputs=status_display)
         
         gr.Markdown(
             """

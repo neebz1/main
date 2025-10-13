@@ -1,0 +1,73 @@
+name: Auto-Approve Notifications
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  auto-approve-dependabot:
+    name: Auto-approve Dependabot PRs
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v1
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+      
+      - name: Approve minor and patch updates
+        if: |
+          steps.metadata.outputs.update-type == 'version-update:semver-minor' || 
+          steps.metadata.outputs.update-type == 'version-update:semver-patch'
+        run: |
+          gh pr review --approve "$PR_URL"
+          echo "✅ Auto-approved ${{ steps.metadata.outputs.update-type }} update"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Auto-merge if patch update
+        if: steps.metadata.outputs.update-type == 'version-update:semver-patch'
+        run: |
+          gh pr merge --auto --squash "$PR_URL"
+          echo "✅ Auto-merge enabled for patch update"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  auto-approve-copilot-prs:
+    name: Auto-approve Copilot PRs
+    runs-on: ubuntu-latest
+    if: |
+      github.actor == 'github-actions[bot]' && 
+      contains(github.event.pull_request.title, 'copilot')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Check PR changes
+        id: check
+        run: |
+          FILES_CHANGED=$(gh pr view ${{ github.event.pull_request.number }} --json files --jq '.files | length')
+          echo "files_changed=$FILES_CHANGED" >> $GITHUB_OUTPUT
+          
+          # Check if only safe files changed
+          SAFE_FILES=$(gh pr view ${{ github.event.pull_request.number }} --json files --jq '.files[].path' | grep -E '\.(md|txt|yml)$' | wc -l)
+          echo "safe_files=$SAFE_FILES" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Auto-approve safe changes
+        if: steps.check.outputs.files_changed == steps.check.outputs.safe_files
+        run: |
+          gh pr review --approve "$PR_URL" --body "✅ Auto-approved: Safe documentation/config changes only"
+          echo "✅ Auto-approved safe Copilot PR"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
