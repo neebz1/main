@@ -14,6 +14,10 @@ env/
 ENV/
 .venv/
 
+# Auto-approval logs
+.copilot_approvals.log
+.copilot_auto_approve.json
+
 # Sound packs (keep structure but not the large audio files)
 sound_packs/**/*.wav
 sound_packs/**/*.mp3
