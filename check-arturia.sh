@@ -53,53 +53,45 @@ echo "5. Logic > Control Surfaces > Setup > add 'Mackie Control' using DAW ports
 echo ""
 echo "Full guide: ARTURIA-KEYLAB-LOGIC-FIX.md"
 
-# 1. Unlock Bitwarden
-export BW_SESSION=$(bw unlock --raw)
-
-# 2. Add Moonshot key
-echo '{"organizationId":null,"folderId":null,"type":1,"name":"Moonshot API Key","notes":null,"favorite":false,"login":{"username":"","password":"YOUR_MOONSHOT_KEY","totp":null}}' | bw encode | bw create item
-
-# 3. Add Google key
-echo '{"organizationId":null,"folderId":null,"type":1,"name":"Google API Key","notes":null,"favorite":false,"login":{"username":"","password":"YOUR_GOOGLE_KEY","totp":null}}' | bw encode | bw create item
-
-# 4. Load keys
-bwload
-
-# 5. Verify
-env | grep -E "MOONSHOT|GOOGLE"
-
-# Make script executable
-chmod +x "$0"
-
-# Verify MIDI connection
-echo "=== Verifying MIDI Connection ==="
-if system_profiler SPAudioDataType | grep -q "KeyLab Essential 49"; then
-    echo "✅ KeyLab detected by macOS"
-else
-    echo "❌ KeyLab not detected - check USB connection"
-fi
+# Verify MIDI connection more thoroughly
 echo ""
-
-# Verify Audio MIDI Setup is working
-if [ -d "/System/Applications/Utilities/Audio MIDI Setup.app" ]; then
-    echo "✅ Audio MIDI Setup available"
-    echo "   Run: open '/System/Applications/Utilities/Audio MIDI Setup.app'"
+echo "=== Detailed MIDI Connection Check ==="
+if system_profiler SPAudioDataType | grep -q "KeyLab Essential 49"; then
+    echo "✅ KeyLab detected by macOS Audio subsystem"
+    system_profiler SPAudioDataType | grep -A 10 "KeyLab"
 else
-    echo "❌ Audio MIDI Setup not found"
+    echo "❌ KeyLab not detected in audio devices - check USB connection"
 fi
 echo ""
 
 # Check if DAW button is pressed (KeyLab should show DAW port when active)
 echo "=== DAW Mode Check ==="
-echo "Press the DAW button on your KeyLab Essential 49"
-echo "You should see 'KeyLab Essential 49 DAW' port in MIDI Studio"
+echo "Make sure the DAW button on your KeyLab Essential 49 is pressed/lit"
+echo "You should see 'KeyLab Essential 49 DAW' port in Audio MIDI Setup"
 echo ""
 
-# Final verification
-echo "=== Setup Complete ==="
-echo "1. ✅ Script is executable"
-echo "2. ✅ MIDI devices checked"
-echo "3. ✅ Logic status checked"
-echo "4. ✅ Control surfaces verified"
+# Open Audio MIDI Setup for user
+echo "=== Opening Audio MIDI Setup ==="
+if [ -d "/System/Applications/Utilities/Audio MIDI Setup.app" ]; then
+    open "/System/Applications/Utilities/Audio MIDI Setup.app"
+    echo "✅ Opened Audio MIDI Setup"
+    echo "   Go to: Window > Show MIDI Studio"
+    echo "   Look for: KeyLab Essential 49 and KeyLab Essential 49 DAW"
+else
+    echo "❌ Audio MIDI Setup not found"
+fi
 echo ""
-echo "Ready to use with Logic Pro!"
+
+# Check for Logic Pro Control Surface conflicts
+echo "=== Logic Pro Control Surface Check ==="
+if [ -f ~/Library/Preferences/com.apple.logic.pro.cs ]; then
+    echo "✅ Control Surface prefs exist"
+    echo "   If transport doesn't work, delete: rm ~/Library/Preferences/com.apple.logic.pro.cs"
+else
+    echo "⚠️  No Control Surface prefs found"
+    echo "   You need to set up Mackie Control in Logic"
+fi
+echo ""
+
+echo "=== Ready! ==="
+echo "Next: Open Logic Pro and follow ARTURIA-KEYLAB-LOGIC-FIX.md steps 5-6"

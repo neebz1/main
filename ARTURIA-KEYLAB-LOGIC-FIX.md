@@ -79,6 +79,3 @@ If you don't see "KeyLab Essential 49 DAW", look for:
 - Faders control mixer (same DAW port)
 
 If step X fails, tell me which one and what error/symptom you see.
-
-
-./setup-api-keys.sh
