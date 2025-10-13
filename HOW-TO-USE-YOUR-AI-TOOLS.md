@@ -114,6 +114,8 @@ You don't need Copilot if you have Cursor! The built-in AI is amazing:
 | Chat about code | Cursor AI Chat | Press `⌘L` |
 | Learn something | Cursor AI Chat | Press `⌘L` |
 | Debug issue | Cursor built-in AI | Select code, `⌘K` |
+| Git commit/push | Cloud AI Builder | `./start-cloud-builder.sh` |
+| Learn Git basics | AI-Friendly Git Guide | Read `AI-FRIENDLY-GIT-GUIDE.md` |
 
 ---
 
