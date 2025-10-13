@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Noah's AI Builder - Hugging Face Space
+AI Music Builder - Hugging Face Space
 Talk to your AI assistant from ANYWHERE to build features!
 
 Access from: Phone, tablet, any browser
@@ -32,22 +32,22 @@ def chat_with_ai(message, history):
         return "⚠️ Please configure TOGETHER_API_KEY in Space Settings → Secrets"
     
     # System prompt
-    system_prompt = """You are Noah's personal AI assistant for building music production tools.
+    system_prompt = """You are a personal AI assistant for building music production tools.
 
-Noah has a complete AI music production suite that includes:
+The user has a complete AI music production suite that includes:
 - Live AI Plugin for Logic Pro (real-time control)
 - AI Mixing Engineer (professional audio analysis)
 - Voice control with Google Gemini
 - OSC automation for Logic Pro
 
 Your job:
-- Help Noah build new features
+- Help build new features
 - Explain code clearly
 - Give step-by-step instructions
 - Be encouraging and supportive
 - Keep it simple and actionable
 
-When Noah asks you to build something:
+When asked to build something:
 1. Explain what you'll create
 2. Show the code
 3. Provide installation/usage instructions
@@ -85,11 +85,11 @@ Be conversational and helpful!"""
 # Create UI
 with gr.Blocks(
     theme=gr.themes.Soft(primary_hue="blue"),
-    title="Noah's AI Builder"
+    title="AI Music Builder"
 ) as demo:
     gr.Markdown(
         """
-        # 🤖 Noah's AI Builder
+        # 🤖 AI Music Builder
         ### Talk to your AI assistant from anywhere - build features on the go!
         
         **I'm your AI assistant!** Tell me what you want to build for your music production suite and I'll help you create it!
@@ -122,7 +122,7 @@ with gr.Blocks(
             
             chatbot = gr.Chatbot(
                 height=600,
-                placeholder="👋 Hi Noah! Tell me what you want to build and I'll help you create it!",
+                placeholder="👋 Hi! Tell me what you want to build and I'll help you create it!",
                 show_label=False,
                 type="messages"
             )
@@ -242,7 +242,7 @@ with gr.Blocks(
         **🔒 Your API keys are safe** - stored in Space Secrets (not in chat)
         
         ---
-        🎵 **Built with AI • Powered by Kimi K2 • Made for Noah** 🎚️
+        🎵 **Built with AI • Powered by Kimi K2** 🎚️
         """
     )
 
