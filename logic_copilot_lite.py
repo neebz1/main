@@ -58,14 +58,19 @@ def chat_with_copilot(message, history):
     """Chat with the AI copilot about production, Logic Pro, or anything music-related"""
     
     if not client:
-        return "⚠️ Please add your API key to the .env file to use the AI copilot. Check config_example.txt for instructions!"
+        error_msg = "⚠️ Please add your API key to the .env file to use the AI copilot. Check config_example.txt for instructions!"
+        history.append({"role": "user", "content": message})
+        history.append({"role": "assistant", "content": error_msg})
+        return history, ""
     
     try:
         if AI_PROVIDER == "kimi":
             messages = [{"role": "system", "content": SYSTEM_PROMPT}]
             for h in history:
-                messages.append({"role": "user", "content": h[0]})
-                messages.append({"role": "assistant", "content": h[1]})
+                if h.get("role") == "user":
+                    messages.append({"role": "user", "content": h["content"]})
+                elif h.get("role") == "assistant":
+                    messages.append({"role": "assistant", "content": h["content"]})
             messages.append({"role": "user", "content": message})
             
             response = client.chat.completions.create(
@@ -84,8 +89,10 @@ def chat_with_copilot(message, history):
         elif AI_PROVIDER == "anthropic":
             messages = []
             for h in history:
-                messages.append({"role": "user", "content": h[0]})
-                messages.append({"role": "assistant", "content": h[1]})
+                if h.get("role") == "user":
+                    messages.append({"role": "user", "content": h["content"]})
+                elif h.get("role") == "assistant":
+                    messages.append({"role": "assistant", "content": h["content"]})
             messages.append({"role": "user", "content": message})
             
             response = client.messages.create(
@@ -99,8 +106,10 @@ def chat_with_copilot(message, history):
         else:  # OpenAI
             messages = [{"role": "system", "content": SYSTEM_PROMPT}]
             for h in history:
-                messages.append({"role": "user", "content": h[0]})
-                messages.append({"role": "assistant", "content": h[1]})
+                if h.get("role") == "user":
+                    messages.append({"role": "user", "content": h["content"]})
+                elif h.get("role") == "assistant":
+                    messages.append({"role": "assistant", "content": h["content"]})
             messages.append({"role": "user", "content": message})
             
             response = client.chat.completions.create(
@@ -110,10 +119,15 @@ def chat_with_copilot(message, history):
             )
             reply = response.choices[0].message.content
         
-        return reply
+        history.append({"role": "user", "content": message})
+        history.append({"role": "assistant", "content": reply})
+        return history, ""
         
     except Exception as e:
-        return f"Oops! Something went wrong: {str(e)}\n\nMake sure your API key is set up correctly in .env"
+        error_msg = f"Oops! Something went wrong: {str(e)}\n\nMake sure your API key is set up correctly in .env"
+        history.append({"role": "user", "content": message})
+        history.append({"role": "assistant", "content": error_msg})
+        return history, ""
 
 
 def get_quick_tips():
@@ -194,7 +208,8 @@ def create_ui():
                 chatbot = gr.Chatbot(
                     height=500,
                     placeholder="👋 Hey! I'm your Logic Pro copilot. Ask me anything about beatmaking!",
-                    show_label=False
+                    show_label=False,
+                    type="messages"
                 )
                 
                 with gr.Row():
@@ -206,8 +221,8 @@ def create_ui():
                     submit = gr.Button("Send", scale=1, variant="primary")
                 
                 # Handle chat
-                msg.submit(chat_with_copilot, [msg, chatbot], [chatbot])
-                submit.click(chat_with_copilot, [msg, chatbot], [chatbot])
+                msg.submit(chat_with_copilot, [msg, chatbot], [chatbot, msg])
+                submit.click(chat_with_copilot, [msg, chatbot], [chatbot, msg])
             
             # Sound Packs Tab
             with gr.Tab("📦 Sound Packs"):
