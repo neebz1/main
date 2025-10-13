@@ -29,7 +29,10 @@ def chat_with_ai(message, history):
     """Chat with AI to build features"""
     
     if not client:
-        return "⚠️ Please configure TOGETHER_API_KEY in Space Settings → Secrets"
+        error_msg = {"role": "assistant", "content": "⚠️ Please configure TOGETHER_API_KEY in Space Settings → Secrets"}
+        history.append({"role": "user", "content": message})
+        history.append(error_msg)
+        return history, ""
     
     # System prompt
     system_prompt = """You are Noah's personal AI assistant for building music production tools.
@@ -56,11 +59,13 @@ When Noah asks you to build something:
 Be conversational and helpful!"""
     
     try:
-        # Build message history
+        # Build message history for API
         messages = [{"role": "system", "content": system_prompt}]
         for h in history:
-            messages.append({"role": "user", "content": h[0]})
-            messages.append({"role": "assistant", "content": h[1]})
+            if h.get("role") == "user":
+                messages.append({"role": "user", "content": h["content"]})
+            elif h.get("role") == "assistant":
+                messages.append({"role": "assistant", "content": h["content"]})
         messages.append({"role": "user", "content": message})
         
         # Call AI
@@ -76,10 +81,16 @@ Be conversational and helpful!"""
             safety_model="moonshotai/Kimi-K2-Instruct"
         )
         
-        return response.choices[0].message.content
+        # Append to history and return
+        history.append({"role": "user", "content": message})
+        history.append({"role": "assistant", "content": response.choices[0].message.content})
+        return history, ""
         
     except Exception as e:
-        return f"❌ Error: {str(e)}\n\nCheck API key configuration in Settings → Secrets"
+        error_msg = f"❌ Error: {str(e)}\n\nCheck API key configuration in Settings → Secrets"
+        history.append({"role": "user", "content": message})
+        history.append({"role": "assistant", "content": error_msg})
+        return history, ""
 
 
 # Create UI
@@ -137,8 +148,8 @@ with gr.Blocks(
                 submit = gr.Button("🚀 Build It!", scale=1, variant="primary", size="lg")
             
             # Handle chat
-            msg.submit(chat_with_ai, [msg, chatbot], [chatbot])
-            submit.click(chat_with_ai, [msg, chatbot], [chatbot])
+            msg.submit(chat_with_ai, [msg, chatbot], [chatbot, msg])
+            submit.click(chat_with_ai, [msg, chatbot], [chatbot, msg])
             
             # Clear button
             clear = gr.Button("🗑️ Clear Chat")

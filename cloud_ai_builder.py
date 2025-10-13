@@ -137,7 +137,10 @@ def chat_with_builder(message, history):
     """Chat with AI builder to create features"""
     
     if not client:
-        return "⚠️ Please add API key to .env file"
+        error_msg = {"role": "assistant", "content": "⚠️ Please add API key to .env file"}
+        history.append({"role": "user", "content": message})
+        history.append(error_msg)
+        return history, ""
     
     # System prompt for builder
     system_prompt = """You are an AI project builder assistant. 
@@ -165,8 +168,10 @@ Always explain what you're doing and why."""
         if AI_PROVIDER == "kimi":
             messages = [{"role": "system", "content": system_prompt}]
             for h in history:
-                messages.append({"role": "user", "content": h[0]})
-                messages.append({"role": "assistant", "content": h[1]})
+                if h.get("role") == "user":
+                    messages.append({"role": "user", "content": h["content"]})
+                elif h.get("role") == "assistant":
+                    messages.append({"role": "assistant", "content": h["content"]})
             messages.append({"role": "user", "content": message})
             
             response = client.chat.completions.create(
@@ -175,13 +180,17 @@ Always explain what you're doing and why."""
                 max_tokens=2048,
                 temperature=0.7
             )
-            return response.choices[0].message.content
+            history.append({"role": "user", "content": message})
+            history.append({"role": "assistant", "content": response.choices[0].message.content})
+            return history, ""
             
         elif AI_PROVIDER == "anthropic":
             messages = []
             for h in history:
-                messages.append({"role": "user", "content": h[0]})
-                messages.append({"role": "assistant", "content": h[1]})
+                if h.get("role") == "user":
+                    messages.append({"role": "user", "content": h["content"]})
+                elif h.get("role") == "assistant":
+                    messages.append({"role": "assistant", "content": h["content"]})
             messages.append({"role": "user", "content": message})
             
             response = client.messages.create(
@@ -190,13 +199,17 @@ Always explain what you're doing and why."""
                 system=system_prompt,
                 messages=messages
             )
-            return response.content[0].text
+            history.append({"role": "user", "content": message})
+            history.append({"role": "assistant", "content": response.content[0].text})
+            return history, ""
             
         else:  # OpenAI
             messages = [{"role": "system", "content": system_prompt}]
             for h in history:
-                messages.append({"role": "user", "content": h[0]})
-                messages.append({"role": "assistant", "content": h[1]})
+                if h.get("role") == "user":
+                    messages.append({"role": "user", "content": h["content"]})
+                elif h.get("role") == "assistant":
+                    messages.append({"role": "assistant", "content": h["content"]})
             messages.append({"role": "user", "content": message})
             
             response = client.chat.completions.create(
@@ -204,10 +217,15 @@ Always explain what you're doing and why."""
                 messages=messages,
                 max_tokens=2048
             )
-            return response.choices[0].message.content
+            history.append({"role": "user", "content": message})
+            history.append({"role": "assistant", "content": response.choices[0].message.content})
+            return history, ""
             
     except Exception as e:
-        return f"❌ Error: {str(e)}"
+        error_msg = f"❌ Error: {str(e)}"
+        history.append({"role": "user", "content": message})
+        history.append({"role": "assistant", "content": error_msg})
+        return history, ""
 
 
 def execute_task(task_description):
@@ -266,8 +284,8 @@ def create_ui():
                     submit = gr.Button("🚀 Build It!", scale=1, variant="primary")
                 
                 # Handle chat
-                msg.submit(chat_with_builder, [msg, chatbot], [chatbot])
-                submit.click(chat_with_builder, [msg, chatbot], [chatbot])
+                msg.submit(chat_with_builder, [msg, chatbot], [chatbot, msg])
+                submit.click(chat_with_builder, [msg, chatbot], [chatbot, msg])
             
             # Quick Actions Tab
             with gr.Tab("⚡ Quick Actions"):
