@@ -6,6 +6,12 @@ Everything you need in ONE place. Simple. Clean. Working.
 
 ## ⚡ INSTANT SETUP - ONE COMMAND!
 
+```
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  🎵 Get Everything Working in 60 Seconds! 🚀         ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+```
+
 **New to this repo? Run this ONE command to download and set up everything:**
 
 ```bash
@@ -14,7 +20,9 @@ Everything you need in ONE place. Simple. Clean. Working.
 
 That's it! This installs all dependencies, configures everything, and gets you ready to use all 5 AI music tools in ~60 seconds.
 
-📖 **For detailed setup instructions, see [SETUP-GUIDE.md](SETUP-GUIDE.md)**
+📖 **For detailed setup instructions, see [SETUP-GUIDE.md](SETUP-GUIDE.md)**  
+🎯 **Quick visual guide: [QUICK-SETUP.txt](QUICK-SETUP.txt)**  
+📊 **See the setup flow: [SETUP-FLOW-DIAGRAM.txt](SETUP-FLOW-DIAGRAM.txt)**
 
 ---
 
