@@ -2,6 +2,8 @@
 
 **The simplest guide to Git with AI tools - No confusing jargon!**
 
+**💡 Quick Tip:** Want a one-page reference? Check out `GIT-CHEATSHEET.txt` - print it and keep it handy!
+
 ---
 
 ## 🎯 What You Need to Know

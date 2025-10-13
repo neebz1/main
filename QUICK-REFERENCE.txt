@@ -27,6 +27,7 @@ START-HERE.md                 Quick start
 FINAL-SETUP-SUMMARY.md        Complete guide
 HOW-TO-USE-YOUR-AI-TOOLS.md   Tool instructions
 AI-FRIENDLY-GIT-GUIDE.md      Git for beginners
+GIT-CHEATSHEET.txt            Git quick reference
 CLEANUP-COMPLETE.md           What I cleaned up
 
 🎯 COMMON TASKS
