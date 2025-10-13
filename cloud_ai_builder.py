@@ -427,6 +427,7 @@ def create_ui():
                     2. 🎚️ **AI Mixing Engineer** - Professional audio analysis  
                     3. 💬 **Music Copilot** - Production chat assistant
                     4. 🎤 **Voice AI** - Google Gemini 2.0 with vision
+                    5. 🤖 **Autonomous Git** - Auto-commit & push changes
                     
                     **Tech Stack:**
                     - Python 3.11
@@ -435,12 +436,19 @@ def create_ui():
                     - OSC Protocol
                     - AppleScript automation
                     - librosa audio analysis
+                    - Autonomous Git Watcher
                     
                     **Project Location:** `/Users/nr/main`
                     
                     **GitHub:** https://github.com/neebz1/main
                     
                     **Status:** Production-ready! ✅
+                    
+                    ---
+                    
+                    **🤖 NEW: Your git is now fully autonomous!**  
+                    Changes are automatically committed and pushed.  
+                    Control it from the **⚡ Quick Actions** tab.
                     """
                 )
                 
