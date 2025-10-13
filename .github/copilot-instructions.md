@@ -1,3 +1,4 @@
+
 # Copilot Coding Agent Instructions
 
 ## Purpose

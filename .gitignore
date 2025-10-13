@@ -1,6 +1,7 @@
 # Environment and API keys
 .env
 *.env
+.bitwarden-oauth
 
 # Python
 __pycache__/
@@ -11,6 +12,7 @@ __pycache__/
 venv/
 env/
 ENV/
+.venv/
 
 # Sound packs (keep structure but not the large audio files)
 sound_packs/**/*.wav
