@@ -440,23 +440,41 @@ def create_ui():
 
 
 if __name__ == "__main__":
+    print("\n" + "━" * 60)
     print("🎚️ Starting AI Mixing Engineer...")
-    print("=" * 60)
+    print("━" * 60)
     
     if not OPENAI_API_KEY and not ANTHROPIC_API_KEY and not TOGETHER_API_KEY:
-        print("⚠️  Warning: No API key found!")
-        print("Audio analysis will work, but AI suggestions require an API key")
-        print("=" * 60)
+        print("\n⚠️  Warning: No API key found!")
+        print("\n💡 Audio analysis will work, but AI suggestions require an API key")
+        print("\nTo enable AI features:")
+        print("1. Create/edit .env file: cp config_example.txt .env")
+        print("2. Add your API key (OpenAI, Anthropic, or Kimi K2)")
+        print("3. Restart the app")
+        print("\n🆘 Need help? Run: python3 help.py")
+        print("━" * 60)
     elif AI_PROVIDER:
         provider_names = {"kimi": "Kimi K2", "anthropic": "Claude", "openai": "GPT-4"}
-        print(f"✅ AI Provider: {provider_names.get(AI_PROVIDER, AI_PROVIDER)}")
-        print("=" * 60)
+        print(f"\n✅ AI Provider: {provider_names.get(AI_PROVIDER, AI_PROVIDER)}")
+        print("✅ Ready to analyze your audio!")
+        print("\n🆘 Need help? Run: python3 help.py")
+        print("━" * 60)
     
-    app = create_ui()
-    app.launch(
-        server_name="127.0.0.1",
-        server_port=7861,  # Different port from the other app
-        share=False,
-        inbrowser=True
-    )
+    try:
+        app = create_ui()
+        print("\n🚀 Launching in your browser...")
+        print("📍 URL: http://127.0.0.1:7861")
+        print("\n💡 Press Ctrl+C to stop\n")
+        app.launch(
+            server_name="127.0.0.1",
+            server_port=7861,  # Different port from the other app
+            share=False,
+            inbrowser=True
+        )
+    except Exception as e:
+        print(f"\n❌ Error starting app: {e}")
+        print("\n🆘 Try running: ./fix-everything.sh")
+        print("Or run: python3 help.py for diagnostics")
+        import sys
+        sys.exit(1)
 
