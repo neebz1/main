@@ -1,0 +1,101 @@
+# Super Agent Configuration
+
+agents:
+  # Coding Agents
+  cline:
+    type: "ide_extension"
+    capabilities: ["code_generation", "file_edit", "terminal", "debug"]
+    priority: 9
+    api: "none"  # IDE extension
+    
+  cursor_ai:
+    type: "ide_builtin"
+    capabilities: ["code_generation", "chat", "inline_edit"]
+    priority: 8
+    api: "cursor"
+    
+  github_copilot:
+    type: "ide_extension"
+    capabilities: ["code_completion", "suggestions"]
+    priority: 7
+    api: "github"
+
+  # Music Agents
+  logic_copilot:
+    type: "web_service"
+    port: 7860
+    capabilities: ["music_chat", "production_tips", "sound_packs"]
+    priority: 8
+    api: ["kimi_k2", "anthropic", "openai"]
+    launch_script: "./start-music-ai.sh"
+    
+  mixing_engineer:
+    type: "web_service"
+    port: 7861
+    capabilities: ["audio_analysis", "mixing_suggestions", "visualization"]
+    priority: 9
+    api: ["openai", "anthropic"]
+    launch_script: "./start-ai-mixing-engineer.sh"
+    
+  live_ai_assistant:
+    type: "standalone"
+    capabilities: ["voice", "vision", "screen_capture", "realtime"]
+    priority: 8
+    api: "gemini"
+    launch_script: "./start-live-ai-assistant.sh"
+    
+  logic_ai_plugin:
+    type: "standalone"
+    capabilities: ["osc_control", "logic_automation", "vision", "realtime"]
+    priority: 9
+    api: "gemini"
+    launch_script: "./start-logic-ai-plugin.sh"
+
+  # Documentation Agents
+  docs_agent:
+    type: "api_service"
+    port: 8000
+    capabilities: ["doc_search", "indexing", "embedding", "rag"]
+    priority: 7
+    api: "openrouter"
+    launch_script: "cd CursorDocsIndex && python api_server.py"
+
+# Resource Limits
+resources:
+  max_concurrent_agents: 5
+  max_api_calls_per_minute:
+    openrouter: 60
+    kimi_k2: 100
+    anthropic: 50
+    openai: 60
+    gemini: 60
+  reserved_ports:
+    - 7860  # Logic Copilot
+    - 7861  # Mixing Engineer
+    - 8000  # Docs Agent
+    - 9000  # Super Agent Dashboard
+
+# Task Routing Rules
+routing:
+  code_generation:
+    preferred: ["cline", "cursor_ai"]
+    fallback: ["github_copilot"]
+    
+  music_production:
+    preferred: ["logic_copilot", "mixing_engineer"]
+    realtime: ["live_ai_assistant", "logic_ai_plugin"]
+    
+  documentation:
+    search: ["docs_agent"]
+    chat: ["cursor_ai", "logic_copilot"]
+    
+  complex_tasks:
+    multi_file: ["cline"]
+    single_file: ["cursor_ai"]
+
+# Coordination Rules
+coordination:
+  file_locking: true
+  context_sharing: true
+  activity_logging: true
+  conflict_resolution: "priority_based"
