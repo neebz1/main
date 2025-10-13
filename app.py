@@ -194,7 +194,7 @@ with gr.Blocks(
                 
                 ### Project Location:
                 - GitHub: https://github.com/neebz1/main
-                - Local: `/Users/nr/main`
+                - Clone: `git clone https://github.com/neebz1/main.git`
                 
                 ### Current Status:
                 ✅ Production-ready

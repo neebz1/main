@@ -301,7 +301,7 @@ def create_ui():
                     outputs=output
                 )
                 test_btn.click(
-                    lambda: builder.execute_command("cd /Users/nr/main && source venv/bin/activate && python -m pytest --version"),
+                    lambda: builder.execute_command("source venv/bin/activate && python -m pytest --version"),
                     outputs=output
                 )
                 start_mixing_btn.click(
@@ -337,9 +337,9 @@ def create_ui():
                     - AppleScript automation
                     - librosa audio analysis
                     
-                    **Project Location:** `/Users/nr/main`
-                    
                     **GitHub:** https://github.com/neebz1/main
+                    
+                    **Clone:** `git clone https://github.com/neebz1/main.git`
                     
                     **Status:** Production-ready! ✅
                     """
@@ -349,7 +349,7 @@ def create_ui():
                 info_output = gr.Markdown()
                 
                 def get_project_info():
-                    files = list(Path("/Users/nr/main").glob("*.py"))
+                    files = list(builder.project_dir.glob("*.py"))
                     return f"""
 ### Current Python Files:
 {chr(10).join(f"- `{f.name}`" for f in files)}
