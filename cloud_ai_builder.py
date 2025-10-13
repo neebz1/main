@@ -19,6 +19,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 from datetime import datetime
 import json
+import threading
+from auto_git_watcher import AutoGitWatcher
 
 # Load environment
 load_dotenv()
@@ -56,6 +58,8 @@ class ProjectBuilder:
     def __init__(self, project_dir="/Users/nr/main"):
         self.project_dir = Path(project_dir)
         self.build_history = []
+        self.auto_git_watcher = None
+        self.auto_git_thread = None
         
     def execute_command(self, command: str) -> str:
         """Execute shell command and return output"""
@@ -127,6 +131,57 @@ class ProjectBuilder:
             return f"✅ Committed and pushed!\n\n{result.stdout}"
         except Exception as e:
             return f"⚠️ Git operation: {e}"
+    
+    def start_auto_git(self, interval: int = 300) -> str:
+        """Start autonomous git watcher"""
+        try:
+            if self.auto_git_watcher and self.auto_git_watcher.running:
+                return "⚠️ Auto-git is already running!"
+            
+            self.auto_git_watcher = AutoGitWatcher(
+                project_dir=str(self.project_dir),
+                interval=interval
+            )
+            
+            # Run in background thread
+            self.auto_git_thread = threading.Thread(
+                target=self.auto_git_watcher.watch,
+                daemon=True
+            )
+            self.auto_git_thread.start()
+            
+            return f"✅ Autonomous git watcher started!\n\nChecking for changes every {interval} seconds."
+        except Exception as e:
+            return f"❌ Error starting auto-git: {e}"
+    
+    def stop_auto_git(self) -> str:
+        """Stop autonomous git watcher"""
+        try:
+            if not self.auto_git_watcher or not self.auto_git_watcher.running:
+                return "⚠️ Auto-git is not running"
+            
+            self.auto_git_watcher.stop()
+            return "✅ Autonomous git watcher stopped!"
+        except Exception as e:
+            return f"❌ Error stopping auto-git: {e}"
+    
+    def auto_git_status(self) -> str:
+        """Get status of autonomous git watcher"""
+        try:
+            if not self.auto_git_watcher:
+                return "❌ Auto-git not initialized"
+            
+            if self.auto_git_watcher.running:
+                return f"""✅ Auto-git is RUNNING
+                
+Interval: {self.auto_git_watcher.interval} seconds
+Auto-push: {'Enabled' if self.auto_git_watcher.config['auto_push'] else 'Disabled'}
+Project: {self.auto_git_watcher.project_dir}
+"""
+            else:
+                return "⚠️ Auto-git is STOPPED"
+        except Exception as e:
+            return f"❌ Error checking status: {e}"
 
 
 # Initialize builder
@@ -289,6 +344,25 @@ def create_ui():
                     start_plugin_btn = gr.Button("🎵 Start Live Plugin")
                     status_btn = gr.Button("📈 Check Status")
                 
+                # Autonomous Git Section
+                gr.Markdown("---")
+                gr.Markdown("### 🤖 Autonomous Git")
+                gr.Markdown("Automatically commit and push changes every few minutes")
+                
+                with gr.Row():
+                    auto_git_interval = gr.Number(
+                        label="Check Interval (seconds)",
+                        value=300,
+                        minimum=60,
+                        maximum=3600,
+                        step=60
+                    )
+                    
+                with gr.Row():
+                    start_auto_git_btn = gr.Button("🚀 Start Auto-Git", variant="primary")
+                    stop_auto_git_btn = gr.Button("🛑 Stop Auto-Git", variant="stop")
+                    auto_git_status_btn = gr.Button("📊 Check Auto-Git Status")
+                
                 output = gr.Textbox(label="Output", lines=10, interactive=False)
                 
                 # Connect buttons
@@ -314,6 +388,21 @@ def create_ui():
                 )
                 status_btn.click(
                     lambda: builder.execute_command("ps aux | grep -E '(ai_mixing|logic_ai|logic_copilot)' | grep -v grep"),
+                    outputs=output
+                )
+                
+                # Autonomous Git buttons
+                start_auto_git_btn.click(
+                    lambda interval: builder.start_auto_git(int(interval)),
+                    inputs=[auto_git_interval],
+                    outputs=output
+                )
+                stop_auto_git_btn.click(
+                    lambda: builder.stop_auto_git(),
+                    outputs=output
+                )
+                auto_git_status_btn.click(
+                    lambda: builder.auto_git_status(),
                     outputs=output
                 )
             
