@@ -4,7 +4,7 @@ Docs-Agent: Semantic Documentation Indexer for Cursor AI
 A production-ready system for ingesting, indexing, and semantically searching
 documentation to provide authoritative context for AI-assisted coding.
 
-Author: Built for Noah's Vibe-Coding Environment
+Author: Vibe Coding Team
 """
 
 __version__ = "1.0.0"
