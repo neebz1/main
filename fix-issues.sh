@@ -24,12 +24,10 @@ echo -n "Checking Git configuration... "
 git_name=$(git config --global user.name 2>/dev/null || echo "")
 if [ -z "$git_name" ]; then
     echo ""
-    echo -e "${YELLOW}Git not configured. Let's set it up:${NC}"
-    read -p "Enter your name: " user_name
-    read -p "Enter your email: " user_email
-    git config --global user.name "$user_name"
-    git config --global user.email "$user_email"
-    echo -e "${GREEN}✅ Git configured!${NC}"
+    echo -e "${YELLOW}⚠️  Git not configured${NC}"
+    echo "   Please run manually:"
+    echo "   git config --global user.name \"Your Name\""
+    echo "   git config --global user.email \"your@email.com\""
 else
     echo -e "${GREEN}✅ Already configured${NC}"
 fi

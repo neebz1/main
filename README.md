@@ -93,10 +93,16 @@ Opens AI assistant for Logic Pro tips, mixing, production help.
 
 ## 📚 Full Documentation (Optional Reading)
 
+**Confused by all the files?** → Read `WHICH-GUIDE.md` first!
+
+**Quick picks:**
 - `ZERO-ISSUES-SETUP.md` - Comprehensive troubleshooting
 - `ONE-PAGE-QUICK-START.txt` - All shortcuts & commands
+- `TROUBLESHOOTING-FLOWCHART.txt` - Visual step-by-step fixes
+- `ERROR-PREVENTION.md` - Best practices to avoid issues
+- `SETUP-COMPLETE.md` - Full setup overview
 - `START-HERE.md` - Detailed beginner guide
-- `FINAL-SETUP-SUMMARY.md` - Complete setup info
+- `FINAL-SETUP-SUMMARY.md` - Original setup info
 - `HOW-TO-USE-YOUR-AI-TOOLS.md` - Tool instructions
 
 **You don't need to read these unless you have issues.**
