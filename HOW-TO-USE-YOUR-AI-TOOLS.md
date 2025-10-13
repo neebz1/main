@@ -1,5 +1,7 @@
 # 🤖 How to Use Your AI Tools (You Paid For These!)
 
+> 💡 **Want the BEST specifications and advanced setup?** Check out [`CLINE-UNSTOPPABLE-SETUP.md`](./CLINE-UNSTOPPABLE-SETUP.md) for optimal configuration, security best practices, and complete API key management!
+
 ## What You Actually Have:
 
 ### 1. **Cursor's Built-in AI** ✅ (Free with Cursor)
