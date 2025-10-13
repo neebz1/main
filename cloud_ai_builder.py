@@ -374,7 +374,7 @@ def create_ui():
             **Access this from anywhere** - phone, tablet, other computer!
             
             ---
-            🚀 **Built with AI • Powered by Kimi K2 • Made for Noah**
+            🚀 **Built with AI • Powered by Kimi K2**
             """
         )
     
