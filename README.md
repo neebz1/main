@@ -100,3 +100,5 @@ Press `⌘K` in Cursor right now and make something cool! 🚀
 - `START-HERE.md` - Simple beginner guide
 - `FINAL-SETUP-SUMMARY.md` - Complete setup details
 - `HOW-TO-USE-YOUR-AI-TOOLS.md` - Tool instructions
+- `ENVIRONMENT-CONFIGURATION-GUIDE.md` - Environment setup & troubleshooting
+- `ENVIRONMENT-VARIABLES-REFERENCE.md` - Quick reference for all variables

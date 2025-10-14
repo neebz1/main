@@ -179,6 +179,10 @@ Bitwarden:
    - They're already in .env file
    - Apps load them automatically
 
+4. **Environment issues?**
+   - See `ENVIRONMENT-CONFIGURATION-GUIDE.md` for complete setup
+   - See `ENVIRONMENT-VARIABLES-REFERENCE.md` for quick lookup
+
 ---
 
 ## 🎯 Your Next 10 Minutes
