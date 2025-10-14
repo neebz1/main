@@ -212,6 +212,22 @@ ALLOWED_ORIGINS="http://localhost:3000,http://localhost:8000"
 openssl rand -hex 32
 ```
 
+**Generate a secure GRADIO_PASSWORD:**
+```bash
+openssl rand -base64 24
+```
+
+### Environment Setup
+
+For detailed environment configuration including:
+- GitHub Codespaces setup
+- Local development (macOS/Linux/Windows)
+- Git authentication configuration
+- VSCode integration
+- Troubleshooting common issues
+
+**See the comprehensive guide:** `ENVIRONMENT-CONFIGURATION-GUIDE.md`
+
 ---
 
 ## 📋 Daily Workflow
@@ -456,6 +472,7 @@ Through this setup, your environment now has:
 
 - `START-HERE.md` - Absolute beginner guide
 - `README.md` - Project overview
+- `ENVIRONMENT-CONFIGURATION-GUIDE.md` - **NEW!** Complete environment setup guide
 - `SECURITY-FINAL-STATUS.md` - Detailed security report
 - `API-README.md` - Full API documentation
 - `API-SECURITY.md` - Security best practices
