@@ -115,24 +115,34 @@ class ProjectBuilder:
     def git_commit_push(self, message: str) -> str:
         """Commit and push to git"""
         try:
-            # Add all changes
-            subprocess.run("git add -A", shell=True, cwd=self.project_dir, check=True)
-
-            # Commit
+            # Sanitize commit message to prevent command injection
+            # Remove any shell special characters
+            import re
+            safe_message = re.sub(r'[^\w\s\-_.,!?()[\]{}]', '', message)[:200]
+            
+            # Add all changes (using list for safety)
             subprocess.run(
-                f'git commit -m "{message}"',
-                shell=True,
+                ["git", "add", "-A"],
                 cwd=self.project_dir,
                 check=True,
+                shell=False,  # ✅ SECURE: No shell injection
             )
 
-            # Push
+            # Commit (using list for safety)
+            subprocess.run(
+                ["git", "commit", "-m", safe_message],
+                cwd=self.project_dir,
+                check=True,
+                shell=False,  # ✅ SECURE: No shell injection
+            )
+
+            # Push (using list for safety)
             result = subprocess.run(
-                "git push origin main",
-                shell=True,
+                ["git", "push", "origin", "main"],
                 cwd=self.project_dir,
                 capture_output=True,
                 text=True,
+                shell=False,  # ✅ SECURE: No shell injection
             )
 
             return f"✅ Committed and pushed!\n\n{result.stdout}"

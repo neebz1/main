@@ -44,8 +44,9 @@ class SetupWizard:
 
         if missing:
             self.log(f"Installing {len(missing)} packages...", "working")
-            cmd = f"pip install {' '.join(missing)}"
-            result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+            # ✅ SECURE: Use list instead of shell=True to prevent command injection
+            cmd = ["pip", "install"] + missing
+            result = subprocess.run(cmd, capture_output=True, text=True, shell=False)
             if result.returncode == 0:
                 self.log(f"Installed: {', '.join(missing)}", "success")
             else:
