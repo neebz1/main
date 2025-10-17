@@ -5,6 +5,20 @@
 
 ---
 
+## ⚡ NEW: One-Command Setup!
+
+**Haven't set up dependencies yet?** Run this first:
+
+```bash
+./setup-everything.sh
+```
+
+This ONE command installs everything you need in ~60 seconds!
+
+For detailed instructions, see [SETUP-GUIDE.md](SETUP-GUIDE.md)
+
+---
+
 ## ✅ What You Have
 
 - **Google Ultra** (Gemini Advanced) - Premium AI
