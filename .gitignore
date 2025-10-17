@@ -38,6 +38,10 @@ Thumbs.db
 # Documentation is tracked
 !docs/
 
+# Logs
+*.log
+logs/*.log
+
 # IDE
 .vscode/
 .idea/
