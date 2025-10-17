@@ -17,10 +17,12 @@ if ! python -c "import pythonosc" 2>/dev/null; then
 fi
 
 echo ""
-echo "=" * 60
+printf '=%.0s' {1..60}
+echo ""
 echo "🎵 Logic Pro AI Plugin - Real-time Mode"
 echo "No export/import needed - works LIVE!"
-echo "=" * 60
+printf '=%.0s' {1..60}
+echo ""
 echo ""
 
 # Launch the plugin

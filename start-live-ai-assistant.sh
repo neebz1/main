@@ -26,10 +26,12 @@ if ! python -c "import google.generativeai" 2>/dev/null; then
 fi
 
 echo ""
-echo "=" * 60
+printf '=%.0s' {1..60}
+echo ""
 echo "🎵 Live AI Music Assistant"
 echo "Voice-controlled AI assistant that can see and control Logic Pro"
-echo "=" * 60
+printf '=%.0s' {1..60}
+echo ""
 echo ""
 
 # Check for API key
