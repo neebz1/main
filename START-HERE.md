@@ -189,7 +189,8 @@ Bitwarden:
 4. ✅ Watch AI write it
 5. ✅ You're coding with AI!
 
-**That's it. Stop reading guides. Start building.**
+**Want to save your work to GitHub?**
+- Read: `AI-FRIENDLY-GIT-GUIDE.md` for the easiest Git tutorial ever!
 
 ---
 

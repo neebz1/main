@@ -1,0 +1,118 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 GIT CHEATSHEET - Print This & Keep It Handy!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 DAILY COMMANDS (Use These 90% of the Time)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+git status                   What changed?
+git add .                    Stage all changes
+git commit -m "message"      Save with message
+git push                     Upload to GitHub
+git pull                     Download updates
+
+💾 SAVE YOUR WORK (3 Steps)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. git add .
+2. git commit -m "Fixed login bug"
+3. git push origin main
+
+🔄 START YOUR DAY (Get Latest Code)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+git pull origin main
+
+🌿 BRANCHES (Features & Experiments)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+git branch                   List branches
+git branch feature-name      Create branch
+git checkout feature-name    Switch to branch
+git checkout -b new-feature  Create & switch
+git merge feature-name       Merge into current
+
+🆘 UNDO MISTAKES (Lifesavers!)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+git restore file.txt         Undo changes to file
+git restore .                Undo all changes
+git reset HEAD~1             Undo last commit (keep changes)
+git reset --hard HEAD~1      Undo last commit (DELETE changes)
+git commit --amend           Change last commit message
+
+📊 CHECK WHAT'S HAPPENING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+git status                   See what changed
+git log                      See commit history
+git log --oneline            Compact history
+git diff                     See exact changes
+git diff file.txt            Changes in specific file
+
+🤝 TEAM WORKFLOW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. git pull origin main      Get latest
+2. git checkout -b my-feature  Create branch
+3. (make your changes)
+4. git add .
+5. git commit -m "Added X"
+6. git push origin my-feature
+7. (Open Pull Request on GitHub)
+8. (Get approved)
+9. (Merge on GitHub)
+
+✏️ GOOD COMMIT MESSAGES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ "Add login form validation"
+✅ "Fix crash when user logs out"
+✅ "Update API to v2"
+✅ "Remove unused dependencies"
+
+❌ "fixed stuff"
+❌ "update"
+❌ "final version"
+
+🔧 CONFIGURATION (One-Time Setup)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+git config --global user.name "Your Name"
+git config --global user.email "you@email.com"
+git config --global init.defaultBranch main
+
+🚑 EMERGENCY: "I BROKE EVERYTHING!"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+git checkout main            Go to main branch
+git fetch origin             Get latest remote state
+git reset --hard origin/main Reset to GitHub version
+
+🤖 USE AI TO HELP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+In Cursor:
+  ⌘L → Ask: "How do I undo my last commit?"
+  ⌘K → "Write a commit message for my changes"
+  ⌘⇧G → Open visual Git interface
+
+In Terminal:
+  ./start-cloud-builder.sh  → Web UI with Git buttons
+
+📚 LEARN MORE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Read: AI-FRIENDLY-GIT-GUIDE.md (Full tutorial)
+Try: https://learngitbranching.js.org (Interactive!)
+
+💡 PRO TIPS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ Commit often (not just at end of day)
+✓ Pull before push (always!)
+✓ Use branches for features
+✓ Write clear commit messages
+✓ Don't commit secrets or API keys
+✓ Ask AI when stuck - it knows Git!
+
+🔑 REMEMBER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Git = Time machine for your code
+• Commit = Save point
+• Push = Backup to cloud
+• Pull = Get updates
+• Branch = Parallel universe
+• Merge = Combine changes
+• You can almost always undo mistakes!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Made with ❤️ for beginners • Keep this handy! 📌
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

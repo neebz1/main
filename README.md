@@ -100,3 +100,5 @@ Press `⌘K` in Cursor right now and make something cool! 🚀
 - `START-HERE.md` - Simple beginner guide
 - `FINAL-SETUP-SUMMARY.md` - Complete setup details
 - `HOW-TO-USE-YOUR-AI-TOOLS.md` - Tool instructions
+- `AI-FRIENDLY-GIT-GUIDE.md` - Git basics for beginners
+- `GIT-CHEATSHEET.txt` - Quick Git reference (print this!)

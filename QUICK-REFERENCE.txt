@@ -26,6 +26,8 @@ README.md                     Main overview
 START-HERE.md                 Quick start
 FINAL-SETUP-SUMMARY.md        Complete guide
 HOW-TO-USE-YOUR-AI-TOOLS.md   Tool instructions
+AI-FRIENDLY-GIT-GUIDE.md      Git for beginners
+GIT-CHEATSHEET.txt            Git quick reference
 CLEANUP-COMPLETE.md           What I cleaned up
 
 🎯 COMMON TASKS
@@ -34,6 +36,15 @@ Code something:     Open Cursor → ⌘K
 Use Cline:          ⌘⇧P → "Cline"
 Make music:         ./start-music-ai.sh
 Check API keys:     cat .env
+
+🔄 GIT COMMANDS (Quick Save Your Work!)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Save changes:       git add . && git commit -m "message"
+Upload to GitHub:   git push origin main
+Get latest:         git pull origin main
+Check status:       git status
+Undo changes:       git restore .
+Use Git UI:         ⌘⇧G in Cursor
 
 💡 REMEMBER
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
